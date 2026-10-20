@@ -1,0 +1,69 @@
+---
+const [primaryCta, secondaryCta] = [
+  { label: 'Conversá con nosotros', href: '#contacto' },
+  { label: 'Conocé nuestros planes', href: '#precios' },
+];
+---
+
+<section class="hero" id="inicio">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <h1 class="hero__title">Diseño web para negocios y profesionales</h1>
+
+      <p class="hero__text">
+        Potenciamos tu presencia digital para llevarte al siguiente nivel.
+        Logramos que nuevos clientes te encuentren en internet, confíen en el
+        valor de tu trabajo y aumenten tus ventas.
+      </p>
+
+      <div class="hero__actions">
+        <a class="button button--primary" href={primaryCta.href}>{primaryCta.label}</a>
+        <a class="button button--ghost" href={secondaryCta.href}>{secondaryCta.label}</a>
+      </div>
+    </div>
+
+    <div class="hero__stage" aria-hidden="true">
+      <div class="hero__stack">
+        <div class="hero__card hero__card--front">
+          <div class="hero__card-head">
+            <span class="hero__dot"></span>
+            <span class="hero__pill"></span>
+            <span class="hero__pill hero__pill--end"></span>
+          </div>
+
+          <span class="hero__bar hero__bar--title"></span>
+          <span class="hero__bar hero__bar--sub"></span>
+
+          <div class="hero__tiles">
+            <div class="hero__tile">
+              <span class="hero__tile-bar hero__tile-bar--accent"></span>
+              <span class="hero__tile-bar"></span>
+            </div>
+            <div class="hero__tile">
+              <span class="hero__tile-bar hero__tile-bar--accent"></span>
+              <span class="hero__tile-bar"></span>
+            </div>
+            <div class="hero__tile">
+              <span class="hero__tile-bar hero__tile-bar--accent"></span>
+              <span class="hero__tile-bar"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__card hero__card--back">
+          <div class="hero__back-head">
+            <span class="hero__dot hero__dot--muted"></span>
+            <span class="hero__pill"></span>
+          </div>
+
+          <div class="hero__square-grid">
+            <span class="hero__square"></span>
+            <span class="hero__square"></span>
+            <span class="hero__square"></span>
+            <span class="hero__square"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,65 @@
+---
+const steps = [
+  {
+    title: '1. Relevamiento inicial',
+    text: 'Nos reunimos para entender el estado actual, tus objetivos y tus servicios principales. Definimos qué necesita tu negocio para empezar a vender más.',
+    icon: 'M4 6h16M4 12h16M4 18h16',
+  },
+  {
+    title: '2. Arquitectura y diseño',
+    text: 'Definimos la estructura del sitio y la propuesta visual. Te entregamos un diseño funcional, pensado para tu cliente ideal.',
+    icon: 'M12 4v16m8-8H4',
+  },
+  {
+    title: '3. Desarrollo e implementación',
+    text: 'Construimos la web bajo estándares de calidad, configurando tu dominio, los servidores y las vías de contacto directo.',
+    icon: 'M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2',
+  },
+  {
+    title: '4. Puesta en marcha y soporte',
+    text: 'Publicamos el sitio tras las pruebas necesarias y te acompañamos de forma continua para que tu presencia digital crezca con vos.',
+    icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z',
+  },
+];
+---
+
+<section class="process" id="como-trabajamos">
+  <div class="container">
+    <div class="section-heading section-heading--center process__header">
+      <span class="section-heading__eyebrow">Proceso</span>
+      <h2 class="section-heading__title">Cómo trabajamos en Aureq</h2>
+      <p class="section-heading__text">
+        Nos encargamos de todo de principio a fin para tener tu web profesional
+        lista en una semana. Avanzamos con pasos firmes para acercarte al
+        resultado de forma efectiva.
+      </p>
+    </div>
+
+    <div class="process__grid">
+      {
+        steps.map((step) => (
+          <article class="process__step">
+            <div class="process__icon">
+              <svg
+                aria-hidden="true"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d={step.icon} stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="process__title">{step.title}</h3>
+            <p class="process__text">{step.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="process__actions">
+      <a class="button button--surface button--sm" href="#contacto">Empezá tu proyecto</a>
+      <a class="process__link" href="#precios">Ver precios <span aria-hidden="true">›</span></a>
+    </div>
+  </div>
+</section>

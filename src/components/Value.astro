@@ -1,0 +1,64 @@
+---
+const cards = [
+  {
+    title: 'Destacá frente a la competencia',
+    text: 'Generá confianza desde el primer segundo. No estar en internet hace que pierdas ventas ante otros que se muestran mejor; tu web respalda tu trayectoria para que te elijan a vos.',
+    icon: 'M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9',
+  },
+  {
+    title: 'Sumá clientes nuevos constantemente',
+    text: 'Llegá todos los días a personas que buscan lo que ofrecés pero todavía no te conocen. Tu sitio trabaja 24/7 para traerte consultas nuevas y aumentar tus ventas.',
+    icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
+  },
+  {
+    title: 'Destacá tus productos y servicios estrella',
+    text: 'Presentá tu trabajo en un espacio propio y sin distracciones. En las redes las publicaciones quedan atrás; tu sitio mantiene tu oferta ordenada y accesible.',
+    icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
+  },
+  {
+    title: 'Transformá el interés en ventas',
+    text: 'Facilitá que el cliente te contacte con un solo clic. Si no encuentra tus datos rápido, perdés la venta; tu sitio responde y acelera el cierre.',
+    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+  },
+];
+---
+
+<section class="value">
+  <div class="value__decor" aria-hidden="true"></div>
+
+  <div class="container value__inner">
+    <div class="section-heading value__header">
+      <span class="section-heading__eyebrow">Método</span>
+      <h2 class="section-heading__title">Tener un sitio web propio marca la diferencia</h2>
+      <p class="section-heading__text">
+        Hoy las personas buscan lo que necesitan en Google o preguntándole a la
+        inteligencia artificial. Muchos negocios y profesionales con años de
+        experiencia pierden esas oportunidades por no haber dado todavía este
+        paso: tener un sitio propio que muestre el valor de su trabajo, haga que
+        los encuentren primero y convierta a esos interesados en clientes.
+      </p>
+    </div>
+
+    <div class="value__grid">
+      {
+        cards.map((card) => (
+          <article class="value__card">
+            <div class="value__icon">
+              <svg
+                aria-hidden="true"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                viewBox="0 0 24 24"
+              >
+                <path d={card.icon} stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3 class="value__title">{card.title}</h3>
+            <p class="value__text">{card.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

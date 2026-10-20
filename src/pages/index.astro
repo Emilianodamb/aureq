@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Value from '../components/Value.astro';
+import Process from '../components/Process.astro';
+import Tech from '../components/Tech.astro';
+import Features from '../components/Features.astro';
+import Pricing from '../components/Pricing.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Faq from '../components/Faq.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Aureq | Diseño web para negocios y profesionales';
+const description =
+  'Creamos sitios web para negocios y profesionales: diseño, copy, SEO y contacto directo por WhatsApp. Tu presencia digital lista para generar clientes.';
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+  <main id="contenido">
+    <Hero />
+    <Value />
+    <Process />
+    <Tech />
+    <Features />
+    <Pricing />
+    <Portfolio />
+    <Faq />
+    <Contact />
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,102 @@
+---
+const items = [
+  {
+    text: 'Te guiamos y acompañamos desde el primer día para definir juntos el rumbo de tu espacio digital.',
+    icon: 'M12 2a10 10 0 100 20 10 10 0 000-20zM12 6v6l4 2',
+  },
+  {
+    text: 'Relevamos tu actividad para ordenar la información, estructurar una propuesta clara y hablarle directamente a tu cliente ideal.',
+    icon: 'M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01',
+  },
+  {
+    text: 'Conectamos tu página con tu WhatsApp para un contacto con un solo clic.',
+    icon: 'M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z',
+  },
+  {
+    text: 'Redactamos y estructuramos los textos para comunicar el verdadero valor de tu trabajo.',
+    icon: 'M9 2h6a1 1 0 011 1v2H8V3a1 1 0 011-1zM8 4H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2',
+  },
+  {
+    text: 'Posicionamiento SEO para que tu sitio destaque en las búsquedas de forma orgánica, sin pagar anuncios.',
+    icon: 'M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82zM7 7h.01',
+  },
+  {
+    text: 'Diseñamos una web limpia y adaptada a celulares para una lectura impecable en cualquier pantalla.',
+    icon: 'M15 2H9a2 2 0 00-2 2v16a2 2 0 002 2h6a2 2 0 002-2V4a2 2 0 00-2-2zM12 18h.01',
+  },
+  {
+    text: 'Gestionamos el registro de tu dominio (.com o .com.ar), los servidores de alto rendimiento y la seguridad SSL.',
+    icon: 'M12 2a10 10 0 100 20 10 10 0 000-20zM2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z',
+  },
+  {
+    text: 'Dejamos el sitio preparado según las normativas vigentes y políticas de privacidad, para tu total tranquilidad.',
+    icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  },
+];
+---
+
+<section class="features">
+  <div class="container features__inner">
+    <div class="features__content">
+      <h2 class="features__title">Todo lo que tu negocio necesita, resuelto de punta a punta.</h2>
+      <p class="features__text">
+        Nos ocupamos de cada detalle técnico, visual y comercial para que vos te
+        enfoques en atender a tu clientela y hacer crecer tu actividad.
+      </p>
+
+      <ul class="features__list">
+        {
+          items.map((item) => (
+            <li class="features__item">
+              <span class="features__icon">
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d={item.icon} stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span class="features__item-text">{item.text}</span>
+              <span class="features__check" aria-hidden="true">✓</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="features__preview" aria-hidden="true">
+      <div class="features__preview-bar">
+        <span>tu-negocio.com</span>
+        <span class="features__preview-dots">
+          <span class="features__preview-dot"></span>
+          <span class="features__preview-dot"></span>
+          <span class="features__preview-dot features__preview-dot--active"></span>
+        </span>
+      </div>
+
+      <div class="features__mock-hero">
+        <span class="features__mock-bar features__mock-bar--accent"></span>
+        <span class="features__mock-bar features__mock-bar--wide"></span>
+      </div>
+
+      <div class="features__mock-grid">
+        <div class="features__mock-card">
+          <span class="features__mock-icon"></span>
+          <span class="features__mock-bar"></span>
+        </div>
+        <div class="features__mock-card">
+          <span class="features__mock-icon"></span>
+          <span class="features__mock-bar"></span>
+        </div>
+      </div>
+
+      <div class="features__mock-cta">
+        <span class="features__mock-bar features__mock-bar--wide"></span>
+        <span class="features__mock-button"></span>
+      </div>
+    </div>
+  </div>
+</section>

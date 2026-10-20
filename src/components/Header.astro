@@ -1,0 +1,94 @@
+---
+const navItems = [
+  { label: 'Inicio', href: '#inicio' },
+  { label: 'Cómo trabajamos', href: '#como-trabajamos' },
+  { label: 'Precios', href: '#precios' },
+  { label: 'Preguntas frecuentes', href: '#preguntas' },
+  { label: 'Contacto', href: '#contacto' },
+];
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a class="header__brand" href="#inicio" aria-label="Aureq, ir al inicio">
+      <img
+        class="header__logo"
+        src="/aureq-logo.svg"
+        alt="Aureq"
+        width="76"
+        height="30"
+      />
+    </a>
+
+    <nav class="header__nav" aria-label="Navegación principal">
+      {
+        navItems.map((item, index) => (
+          <a
+            class="header__nav-link"
+            href={item.href}
+            aria-current={index === 0 ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="header__actions">
+      <a class="button button--primary button--sm" href="#contacto">
+        Hablemos
+      </a>
+
+      <details class="header__menu">
+        <summary class="header__menu-button">
+          <span class="sr-only header__menu-label--open">Abrir menú</span>
+          <span class="sr-only header__menu-label--close">Cerrar menú</span>
+          <svg
+            class="header__menu-icon header__menu-icon--open"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            viewBox="0 0 24 24"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <svg
+            class="header__menu-icon header__menu-icon--close"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            viewBox="0 0 24 24"
+          >
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </summary>
+
+        <nav class="header__menu-panel" aria-label="Menú principal">
+          {navItems.map((item) => <a class="header__menu-link" href={item.href}>{item.label}</a>)}
+          <a class="button button--primary button--block header__menu-cta" href="#contacto">
+            Hablemos
+          </a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('.header__menu');
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => menu.removeAttribute('open'));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu?.open) {
+      menu.removeAttribute('open');
+      menu.querySelector<HTMLElement>('summary')?.focus();
+    }
+  });
+</script>

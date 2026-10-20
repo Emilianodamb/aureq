@@ -1,0 +1,77 @@
+---
+const navLinks = [
+  { label: 'Inicio', href: '#inicio' },
+  { label: 'Cómo trabajamos', href: '#como-trabajamos' },
+  { label: 'Precios', href: '#precios' },
+  { label: 'Preguntas frecuentes', href: '#preguntas' },
+  { label: 'Contacto', href: '#contacto' },
+];
+
+const serviceLinks = [
+  { label: 'Diseño web', href: '#precios' },
+  { label: 'Posicionamiento SEO', href: '#precios' },
+  { label: 'Diseño a medida', href: '#precios' },
+  { label: 'Hosting y dominio', href: '#precios' },
+  { label: 'Consultoría tecnológica', href: '#contacto' },
+];
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__card">
+      <div>
+        <img
+          class="footer__logo"
+          src="/aureq-logo.svg"
+          alt="Aureq"
+          width="76"
+          height="30"
+        />
+        <h2 class="footer__title">Llevá tu negocio al siguiente nivel con Aureq</h2>
+        <p class="footer__text">
+          Sitios web pensados para que te encuentren, confíen en tu trabajo y te
+          escriban.
+        </p>
+
+        <div class="footer__actions">
+          <a class="button button--primary button--sm" href="#contacto">Contactanos</a>
+          <a class="button button--surface button--sm" href="#como-trabajamos">
+            Conocé cómo trabajamos
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__nav">
+        <nav aria-label="Navegación del sitio">
+          <h3 class="footer__heading">Navegación</h3>
+          <ul class="footer__list">
+            {
+              navLinks.map((link) => (
+                <li>
+                  <a class="footer__link" href={link.href}>{link.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <nav aria-label="Servicios">
+          <h3 class="footer__heading">Servicios</h3>
+          <ul class="footer__list">
+            {
+              serviceLinks.map((link) => (
+                <li>
+                  <a class="footer__link" href={link.href}>{link.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2026 Aureq. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

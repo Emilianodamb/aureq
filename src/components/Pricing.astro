@@ -1,0 +1,89 @@
+---
+const plans = [
+  {
+    name: 'Web base',
+    description:
+      'Emprendedores o negocios que recién arrancan y necesitan una presencia digital mínima.',
+    price: '$249.999',
+    note: 'Pago único',
+    cta: 'Empezar ahora',
+    features: [
+      'Gestión de hosting y dominio',
+      'Diseño responsive adaptado',
+      'Integración con WhatsApp',
+      'Estructura de una página optimizada',
+    ],
+    featured: false,
+  },
+  {
+    name: 'Web profesional',
+    description:
+      'Negocios consolidados que quieren salir a vender en serio con una imagen impecable.',
+    price: '$399.999',
+    note: 'Pago único',
+    cta: 'Empezar ahora',
+    features: [
+      'Todas las prestaciones del plan base',
+      'Optimización SEO avanzada',
+      'Redacción persuasiva de contenidos',
+      'Páginas de servicios detalladas',
+      'Soporte prioritario post-lanzamiento',
+    ],
+    featured: true,
+  },
+  {
+    name: 'Web a medida',
+    description:
+      'Empresas con necesidades específicas, desarrollos complejos o requerimientos avanzados de integración.',
+    price: '—',
+    note: 'Presupuesto a medida',
+    cta: 'Hablemos',
+    features: [
+      'Sitios web 100% a medida',
+      'Integraciones de sistemas CRM y ERP',
+      'Plataformas complejas de reservas o pagos',
+      'Arquitectura de servidor dedicada',
+    ],
+    featured: false,
+  },
+];
+---
+
+<section class="pricing" id="precios">
+  <div class="container">
+    <div class="section-heading section-heading--center pricing__header">
+      <h2 class="section-heading__title">Precios</h2>
+      <p class="section-heading__text">Conocé todos nuestros planes</p>
+    </div>
+
+    <div class="pricing__grid">
+      {
+        plans.map((plan) => (
+          <article class:list={['pricing__card', plan.featured && 'pricing__card--featured']}>
+            {plan.featured && <span class="pricing__badge">Más popular</span>}
+
+            <div class="pricing__head">
+              <h3 class="pricing__name">{plan.name}</h3>
+              <p class="pricing__desc">{plan.description}</p>
+            </div>
+
+            <p class="pricing__price">
+              {plan.price}
+              <span class="pricing__price-note">{plan.note}</span>
+            </p>
+
+            <a class="button button--primary button--block button--sm" href="#contacto">
+              {plan.cta}
+            </a>
+
+            <ul class="pricing__features">
+              {plan.features.map((feature) => (
+                <li class="pricing__feature">{feature}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,78 @@
+---
+const projects = [
+  {
+    image: '/projects/total-mecanica.jpg',
+    alt: 'Sitio web de Total Mecánica',
+    domain: 'totalmecanica.com.ar',
+    title: 'Total Mecánica',
+    text: 'Sitio para el taller mecánico de Banfield. Ordenamos los servicios y redactamos el copy para que quien busca un taller entienda de un vistazo qué hace y cómo contactarlo.',
+    tags: ['Landing page', 'Copywriting', 'Diseño web'],
+    href: 'https://totalmecanica.com.ar',
+  },
+  {
+    image: '/projects/ayelen-argerich.jpg',
+    alt: 'Sitio web de Ayelén Argerich',
+    domain: 'ayelenargerich.com',
+    title: 'Traductora Pública Ayelén Argerich',
+    text: 'Sitio para una traductora pública. El foco está en explicar los servicios de traducción y certificación, y en facilitar la consulta de presupuestos.',
+    tags: ['Landing page', 'Traducción', 'Diseño web'],
+    href: 'https://ayelenargerich.com',
+  },
+];
+---
+
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="section-heading section-heading--center portfolio__header">
+      <span class="section-heading__eyebrow">Casos reales</span>
+      <h2 class="section-heading__title">
+        Estos sitios ya están generando prospectos calificados todos los días
+      </h2>
+      <p class="section-heading__text">¡Tu sitio puede ser el próximo!</p>
+    </div>
+
+    <div class="portfolio__grid">
+      {
+        projects.map((project) => (
+          <article class="portfolio__card">
+            <div class="portfolio__media">
+              <img
+                class="portfolio__media-image"
+                src={project.image}
+                alt={project.alt}
+                width="900"
+                height="605"
+                loading="lazy"
+              />
+              <span class="portfolio__domain">{project.domain}</span>
+            </div>
+
+            <div class="portfolio__body">
+              <div>
+                <h3 class="portfolio__title">{project.title}</h3>
+                <p class="portfolio__text">{project.text}</p>
+              </div>
+
+              <div>
+                <ul class="portfolio__tags">
+                  {project.tags.map((tag) => (
+                    <li class="portfolio__tag">{tag}</li>
+                  ))}
+                </ul>
+
+                <a
+                  class="portfolio__link"
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ver proyecto <span aria-hidden="true">›</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+---
+const questions = [
+  {
+    question: '¿En cuánto tiempo tengo lista mi web?',
+    answer:
+      'El proceso de diseño y desarrollo del sitio demora una semana. Trabajamos con un proceso ordenado y fluido, y sabemos exactamente cómo construir la web de tu negocio para destacar en las búsquedas.',
+  },
+  {
+    question: '¿Cómo es la forma de pago?',
+    answer:
+      'El desarrollo es un pago único: pagás una sola vez y el sitio es tuyo para usar el tiempo que quieras, sin abonos mensuales por el diseño. El hosting y el dominio se cotizan aparte según las necesidades técnicas del proyecto.',
+  },
+  {
+    question: '¿Cuáles son los medios de pago?',
+    answer: 'Aceptamos todos los medios de pago y ofrecemos facilidades de financiación.',
+  },
+  {
+    question: '¿Puedo sumar funciones o sistemas adicionales más adelante?',
+    answer:
+      'Sí. Los planes cubren desde un sitio esencial hasta desarrollos a medida. Si tu negocio necesita escalar, podés consultar por servicios de automatizaciones y sistemas integrados.',
+  },
+  {
+    question: '¿Qué pasa una vez que el sitio está publicado?',
+    answer:
+      'Te entregamos la web completamente funcional y lista para recibir clientes. Si en el futuro necesitás cambios de contenido o ajustes técnicos, podés contar con nuestro soporte continuo para mantener tu presencia digital al día.',
+  },
+  {
+    question: '¿El sitio web se ve bien en celulares?',
+    answer:
+      'Sí, 100%. Hoy la gran mayoría de las visitas y consultas entran desde el teléfono, por lo que cada desarrollo se diseña, estructura y optimiza para verse y funcionar de manera impecable en cualquier pantalla.',
+  },
+];
+---
+
+<section class="faq" id="preguntas">
+  <div class="container faq__inner">
+    <div class="section-heading section-heading--center faq__header">
+      <h2 class="section-heading__title">Preguntas frecuentes</h2>
+      <p class="section-heading__text">
+        Aquí encontrás las respuestas a las preguntas más frecuentes de nuestros clientes.
+      </p>
+    </div>
+
+    <div class="faq__list">
+      {
+        questions.map((item, index) => (
+          <details class="faq__item" open={index === 0}>
+            <summary class="faq__question">
+              <span>{item.question}</span>
+              <span class="faq__icon">
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </summary>
+            <div class="faq__answer">{item.answer}</div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
