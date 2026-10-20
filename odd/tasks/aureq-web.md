@@ -13,6 +13,7 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 - **S5 — Portfolio real**: capturas de `totalmecanica.com.ar` y `ayelenargerich.com` en `public/projects/`, con `loading="lazy"` y enlaces externos con `rel="noopener noreferrer"`.
 - **S6 — Responsive**: sin scroll horizontal en 390 px y 1440 px; menú móvil accesible por teclado (Escape cierra y devuelve el foco); respeto de `prefers-reduced-motion`.
 - **S7 — Intro con el logo**: al cargar, capa negra a pantalla completa con el logo corto centrado, respetando la proporción áurea entre el logo y los laterales (logo / margen = 1.618). El logo parpadea dos veces como un tubo de gas y queda encendido. Al hacer scroll la capa se desvanece y muestra el sitio. Con `prefers-reduced-motion` no hay parpadeo; sin JavaScript la capa no aparece.
+- **S8 — Agenda sin backend**: la sección de contacto ofrece reservar 30 minutos contra el Cal.com del cliente (`emiliano-dambrosio/30min`) sin agregar servidor. El embed se inyecta por IntersectionObserver a 400px de la sección y no bloquea la carga inicial. Desde 899px hacia abajo el widget no se embebe (necesita ~900px para las dos columnas) y se ofrece un botón que abre la agenda en Cal.com.
 
 ## Tasks
 
@@ -23,6 +24,7 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 - [x] T5 — Contacto y footer (S2, S3, S4)
 - [x] T6 — Verificación responsive y de enlaces (S4, S6)
 - [x] T7 — Intro con GSAP: logo, parpadeo y salida al scroll (S7)
+- [x] T8 — Agenda de Cal.com embebida con carga diferida y fallback mobile (S8)
 
 ## Log
 
@@ -63,3 +65,13 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 - Salida: `wheel`, `touchmove`, teclas de navegación o click. La capa se desvanece en 0.6 s y se elimina del DOM.
 - Sin bloqueo de scroll a propósito: la página se mueve detrás de la capa y no hay salto de layout al retirarla.
 - Evidencia: razón medida 0.619 (1440) y 0.621 (390); opacidades muestreadas muestran el parpadeo; con `prefers-reduced-motion` la opacidad es 1 desde el inicio; el scroll retira la capa y mueve la página.
+
+### L6 — Agenda de Cal.com (2026-10-20)
+
+- El pedido era agendar reuniones sin contratar un servidor Node. Se resolvió con el embed oficial de Cal.com: la reserva y la disponibilidad viven en el SaaS, el sitio sigue siendo estático.
+- Se integró en `#contacto` como bloque `.contact__calendar` (BEM, dentro de `Contact.astro`), no como sección nueva, para no duplicar llamados a la acción.
+- Se respetó el snippet del cliente (namespace `30min`, `calLink` `emiliano-dambrosio/30min`, `theme: dark`) y se le agregaron tres cosas: carga diferida, altura estable y fallback.
+- Carga diferida con `IntersectionObserver` (`rootMargin: 400px`): antes de acercarse a la sección no se descarga nada de `app.cal.com`.
+- El iframe de Cal se autodimensiona: fija `min-height` en el contenedor y deja `overflow: visible`. Con `overflow: hidden` se recortaban 50px del widget; con `height` fijo, Cal quedaba más alto que la caja.
+- **Mobile**: el widget necesita ~900px para mostrar calendario y horarios en dos columnas; abajo de eso apila los horarios fuera de la caja visible y obliga a un scroll anidado. Se decidió no embeber por debajo de 899px y mostrar un botón que abre la agenda en Cal.com.
+- Evidencia: desktop 1440 → frame 896×610, `cal-inline` 894×608, calendario y horarios visibles, 0 errores de consola; mobile 390 y tablet 820 → frame oculto, CTA visible, `calLoaded: false` (cero requests a `app.cal.com`); `overflowX` 0 en los tres anchos.

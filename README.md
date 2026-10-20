@@ -50,6 +50,7 @@ Cada sección guarda sus datos en el frontmatter del propio componente, como un 
 | Navegación y menú móvil | `src/components/Header.astro` |
 | Columnas y tarjeta final del footer | `src/components/Footer.astro` |
 | Número de WhatsApp | `src/components/Contact.astro` |
+| Agenda de Cal.com (link y embed) | `src/components/Contact.astro` |
 | Título y descripción para SEO | `src/pages/index.astro` |
 | Pantalla de entrada (intro) | `src/components/Intro.astro` |
 
@@ -67,6 +68,17 @@ Cambiá `5491124012037` por el número destino (formato internacional, sin `+` n
 ### Portfolio
 
 Para reemplazar un proyecto, guardá la captura en `public/projects/` (JPEG, 900×605 idealmente) y actualizá el objeto correspondiente en `Portfolio.astro`: `image`, `alt`, `domain`, `title`, `text`, `tags` y `href`.
+
+## Agenda de reuniones
+
+La sección `#contacto` incluye un calendario de Cal.com embebido, además del botón de WhatsApp.
+
+- **Sin backend**: la reserva, la disponibilidad y los recordatorios los resuelve Cal.com. El sitio sigue siendo 100% estático y se puede subir a cualquier hosting.
+- **Link de la agenda**: `emiliano-dambrosio/30min`. Aparece en tres lugares de `Contact.astro`: `calPageUrl`, el `calLink` del embed y el fallback. Si cambiás el evento en Cal.com, actualizá los tres.
+- **Carga diferida**: el script de Cal.com se inyecta recién cuando la sección está a 400px de entrar en pantalla (IntersectionObserver), así no pesa en la carga inicial.
+- **Desde 899px hacia abajo no se embebe**: el widget necesita ~900px para mostrar calendario y horarios en dos columnas. En mobile y tablet se muestra el botón "Ver horarios disponibles", que abre la agenda en Cal.com (su página está optimizada para celular).
+- **Tema**: `dark` con `cssVarsPerTheme`; el color de marca se controla en `cal-brand` (hoy `#f8f8f8` en dark) dentro del bloque `ui`.
+- **El badge "Cal.com"** del pie del widget lo agrega el plan gratuito y no se puede ocultar desde el código.
 
 ## Pantalla de entrada
 
