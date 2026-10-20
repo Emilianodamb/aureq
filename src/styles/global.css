@@ -22,7 +22,7 @@
   --color-success: #34d399;
 
   /* Tipografía */
-  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system,
+  --font-sans: 'Urbanist', ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', Roboto, Arial, sans-serif;
   --font-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
 
@@ -1490,6 +1490,53 @@ button {
   .footer__card {
     grid-template-columns: 1.1fr 0.9fr;
     gap: 3rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Bloque: intro (pantalla de entrada con el logo)
+   -------------------------------------------------------------------------- */
+
+/*
+  Composición áurea: el ancho del logo es 44.72% del viewport y el aire de cada
+  lateral 27.64%, de modo que logo / margen = φ (1.618). Con dos márgenes
+  iguales y un logo de proporción fija no se puede sostener la misma razón en
+  el eje Y: verticalmente queda centrado con aire proporcionalmente mayor, que
+  es lo natural en un splash. El max-width evita que se salga en pantallas bajas.
+*/
+.intro {
+  --intro-logo-ratio: 1.276;
+
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  overflow: hidden;
+  will-change: opacity;
+}
+
+.intro__frame {
+  display: grid;
+  place-items: center;
+  width: min(44.72%, calc(86dvh * var(--intro-logo-ratio)));
+  aspect-ratio: var(--intro-logo-ratio);
+}
+
+.intro__logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro__logo {
+    opacity: 1;
   }
 }
 

@@ -22,7 +22,8 @@ En Windows, si PowerShell bloquea el shim de pnpm por la política de ejecución
 
 ```
 public/
-  aureq-logo.svg            logo de Aureq (blanco, SVG)
+  aureq-logo.svg            logo completo de Aureq (blanco, SVG)
+  aureq-logo-mark.svg       versión corta "Aq", usada en la intro
   favicon.svg               favicon
   robots.txt
   projects/                 capturas de los proyectos del portfolio
@@ -50,6 +51,7 @@ Cada sección guarda sus datos en el frontmatter del propio componente, como un 
 | Columnas y tarjeta final del footer | `src/components/Footer.astro` |
 | Número de WhatsApp | `src/components/Contact.astro` |
 | Título y descripción para SEO | `src/pages/index.astro` |
+| Pantalla de entrada (intro) | `src/components/Intro.astro` |
 
 ### Número de WhatsApp
 
@@ -65,6 +67,16 @@ Cambiá `5491124012037` por el número destino (formato internacional, sin `+` n
 ### Portfolio
 
 Para reemplazar un proyecto, guardá la captura en `public/projects/` (JPEG, 900×605 idealmente) y actualizá el objeto correspondiente en `Portfolio.astro`: `image`, `alt`, `domain`, `title`, `text`, `tags` y `href`.
+
+## Pantalla de entrada
+
+`src/components/Intro.astro` monta una capa negra a pantalla completa con el logo corto (`aureq-logo-mark.svg`). El logo parpadea dos veces —como un tubo de gas que arranca— y queda encendido. Al primer scroll (o click, o tecla) la capa se desvanece y deja ver el sitio.
+
+- **Animación**: GSAP. La línea de tiempo está en el `<script>` del componente; los tiempos del parpadeo se editan ahí.
+- **Composición áurea**: el logo ocupa 44.72% del ancho y el aire de cada lateral 27.64%, así que `logo / margen = 1.618`. En el eje vertical queda centrado con aire mayor: con un logo de proporción fija no se pueden sostener las dos razones al mismo tiempo.
+- **Cambiar la imagen**: reemplazá `public/aureq-logo-mark.svg`. Si cambia la proporción, actualizá `--intro-logo-ratio` en `global.css` (ancho / alto del viewport del SVG).
+- **Quitar la intro**: eliminá `<Intro />` de `src/pages/index.astro`.
+- **Accesibilidad**: con `prefers-reduced-motion: reduce` no hay parpadeo, el logo aparece directo. Sin JavaScript la capa no se muestra (`<noscript>`).
 
 ## Estilos
 

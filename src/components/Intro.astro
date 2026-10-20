@@ -1,0 +1,137 @@
+---
+/**
+ * Pantalla de entrada: cubre el sitio con el logo y se retira al primer scroll.
+ * La animación vive en un script de cliente (GSAP) para no bloquear el HTML.
+ */
+---
+
+<div class="intro" aria-hidden="true">
+  <div class="intro__frame">
+    <img
+      class="intro__logo"
+      src="/aureq-logo-mark.svg"
+      alt=""
+      width="1249"
+      height="979"
+      decoding="async"
+      fetchpriority="high"
+    />
+  </div>
+</div>
+
+<noscript>
+  <style>
+    .intro {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const intro = document.querySelector<HTMLElement>('.intro');
+  const logo = document.querySelector<HTMLElement>('.intro__logo');
+
+  if (intro && logo) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let introFinished = false;
+    let leaveRequested = false;
+    let gone = false;
+
+    const dismiss = () => {
+      if (gone) return;
+      gone = true;
+
+      const duration = reduceMotion ? 0 : 0.6;
+
+      gsap.killTweensOf(logo);
+
+      gsap.to(logo, {
+        opacity: 0,
+        scale: reduceMotion ? 1 : 1.06,
+        duration: reduceMotion ? 0 : 0.45,
+        ease: 'power2.in',
+      });
+
+      gsap.to(intro, {
+        opacity: 0,
+        duration,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          intro.remove();
+          window.removeEventListener('wheel', requestLeave);
+          window.removeEventListener('touchmove', requestLeave);
+          window.removeEventListener('keydown', onKeyDown);
+          window.removeEventListener('pointerdown', requestLeave);
+        },
+      });
+    };
+
+    const requestLeave = () => {
+      if (gone) return;
+      if (introFinished) dismiss();
+      else leaveRequested = true;
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      const keys = ['Escape', ' ', 'ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End'];
+      if (keys.includes(event.key)) requestLeave();
+    };
+
+    // Si el navegador restauró el scroll, no tiene sentido tapar el sitio.
+    if (window.scrollY > 8) {
+      intro.remove();
+    } else {
+      start();
+    }
+
+    function start() {
+      window.addEventListener('wheel', requestLeave, { passive: true });
+      window.addEventListener('touchmove', requestLeave, { passive: true });
+      window.addEventListener('keydown', onKeyDown);
+      window.addEventListener('pointerdown', requestLeave);
+
+      if (reduceMotion) {
+        gsap.set(logo, { opacity: 1, scale: 1 });
+        introFinished = true;
+        if (leaveRequested) dismiss();
+      } else {
+        const timeline = gsap
+          .timeline()
+          // Primer parpadeo: el tubo de gas arranca
+          .set(logo, { opacity: 0, scale: 0.985 })
+          .to(logo, { opacity: 0.55, duration: 0.05, ease: 'none' }, 0.22)
+          .to(logo, { opacity: 0.08, duration: 0.06, ease: 'none' })
+          .to(logo, { opacity: 0.88, duration: 0.05, ease: 'none' })
+          .to(logo, { opacity: 0.24, duration: 0.05, ease: 'none' })
+          .to(logo, { opacity: 1, duration: 0.07, ease: 'none' })
+          // Segundo parpadeo, más corto: el tubo se asienta
+          .to(logo, { opacity: 0.34, duration: 0.05, ease: 'none' }, '+=0.16')
+          .to(logo, { opacity: 1, duration: 0.05, ease: 'none' }, '+=0.07')
+          .to(logo, { scale: 1, duration: 1.1, ease: 'power2.out' }, 0)
+          .to(
+            logo,
+            {
+              filter: 'drop-shadow(0 0 28px rgb(255 255 255 / 0.18))',
+              duration: 1.2,
+              ease: 'power2.out',
+            },
+            0.3,
+          );
+
+        // El logo ya se puede ir apenas termina el parpadeo, sin esperar
+        // a que se asiente el brillo final.
+        timeline.call(
+          () => {
+            introFinished = true;
+            if (leaveRequested) dismiss();
+          },
+          undefined,
+          0.78,
+        );
+      }
+    }
+  }
+</script>
