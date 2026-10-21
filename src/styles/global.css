@@ -881,7 +881,7 @@ button {
 
 .features__item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.75rem;
   padding: 0.875rem 1rem;
   background: #101115;
@@ -902,6 +902,7 @@ button {
 
 .features__item-text {
   flex: 1;
+
   color: #cfd3da;
   font-size: 0.8125rem;
   line-height: 1.6;
