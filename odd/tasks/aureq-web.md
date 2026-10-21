@@ -10,7 +10,7 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 - **S2 — Secciones**: header sticky con menú móvil, hero, beneficios (4 tarjetas), proceso (4 pasos), franja tecnológica, funcionalidades (8 ítems + mock de navegador), precios (3 planes), portfolio (2 proyectos reales), FAQ (6 preguntas, la primera abierta), contacto y footer.
 - **S3 — Contenido**: hero `"DISEÑO WEB PARA NEGOCIOS Y PROFESIONALES"`; planes `$249.999`, `$399.999` y presupuesto a medida; CTA de contacto exclusivamente por WhatsApp `+54 9 11 2401-2037`.
 - **S4 — Sin enlaces muertos**: toda navegación apunta a anclas existentes (`#inicio`, `#como-trabajamos`, `#precios`, `#preguntas`, `#contacto`). Se eliminaron los íconos sociales y los enlaces de políticas que no tenían destino.
-- **S5 — Portfolio real**: capturas de `totalmecanica.com.ar` y `ayelenargerich.com` en `public/projects/`, con `loading="lazy"` y enlaces externos con `rel="noopener noreferrer"`.
+- **S5 — Portfolio real**: capturas de `totalmecanica.com.ar` y `ayelenargerich.com` en `src/assets/projects/`, procesadas por `<Image>` de `astro:assets` (WebP de 600 y 900 px con `srcset` y `sizes`), `loading="lazy"` y enlaces externos con `rel="noopener noreferrer"`.
 - **S6 — Responsive**: sin scroll horizontal en 390 px y 1440 px; menú móvil accesible por teclado (Escape cierra y devuelve el foco); respeto de `prefers-reduced-motion`.
 - **S7 — Intro con el logo**: al cargar, capa negra a pantalla completa con el logo corto centrado, respetando la proporción áurea entre el logo y los laterales (logo / margen = 1.618). El logo parpadea dos veces como un tubo de gas y queda encendido. Al hacer scroll la capa se desvanece y muestra el sitio. Con `prefers-reduced-motion` no hay parpadeo; sin JavaScript la capa no aparece.
 - **S8 — Agenda sin backend**: la sección de contacto ofrece reservar 30 minutos contra el Cal.com del cliente (`emiliano-dambrosio/30min`) sin agregar servidor. El embed se inyecta por IntersectionObserver a 400px de la sección y no bloquea la carga inicial. Desde 899px hacia abajo el widget no se embebe (necesita ~900px para las dos columnas) y se ofrece un botón que abre la agenda en Cal.com.
@@ -94,3 +94,11 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 - **Portfolio**: ya tenía `loading="lazy"` (S5); se sumó `decoding="async"`. Verificado: las dos imágenes (65 KB cada una) no están cargadas al tope de la página y sí después de scrollear.
 - **Calendario**: no hay `<iframe>` propio que diferir. El embed lo crea el script de Cal.com dentro de `#my-cal-inline-30min`, y el `<script>` que lo pide solo corre cuando el `IntersectionObserver` (400 px) detecta la sección. Medido: 0 iframes al cargar, 1 al acercarse. `loading="lazy"` no aplica porque ese atributo solo existe en `<img>`/`<iframe>` escritos por nosotros.
 - **Ancla del logo**: el `<img>` está envuelto en `<a href="#inicio">` y `#inicio` es el `<section class="hero">`. No se le puso `id="inicio"` al `<img>`: duplicaría el id y haría ambiguo el ancla. Medido: click desde el fondo → `scrollY` 6700 → 28, `location.hash` `#inicio`, un solo elemento con ese id.
+
+### L9 — Capturas del portfolio con `astro:assets` (2026-10-21)
+
+- Las capturas se movieron de `public/projects/` a `src/assets/projects/` y se importan estáticamente. `<Image>` las convierte a WebP en el build: 65 kB → 21 kB (600 px) y → 40 kB (900 px) por captura.
+- `widths={[600, 900, 1200]}`: la de 1200 se descarta sola, Astro no agranda por encima del original (900×605).
+- `sizes` calibrado con la caja real (430 px de ancho en desktop, medida con CDP), no con el `45vw` inicial que pedía 648 px y hacía descargar la variante equivocada.
+- `sharp` no es dependencia directa del proyecto (`import('sharp')` falla desde `node_modules`), pero Astro lo resuelve desde su propio árbol — el build de imágenes funciona sin agregarlo a `package.json`.
+- El audit de la dev toolbar solo marca `perf-use-image-component` en `<img>` sin `data-image-component`; `<Image>` agrega ese atributo en dev, así que la advertencia desaparece.

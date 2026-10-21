@@ -1,7 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+import totalMecanica from '../assets/projects/total-mecanica.jpg';
+import ayelenArgerich from '../assets/projects/ayelen-argerich.jpg';
+
 const projects = [
   {
-    image: '/projects/total-mecanica.jpg',
+    image: totalMecanica,
     alt: 'Sitio web de Total Mecánica',
     domain: 'totalmecanica.com.ar',
     title: 'Total Mecánica',
@@ -10,7 +14,7 @@ const projects = [
     href: 'https://totalmecanica.com.ar',
   },
   {
-    image: '/projects/ayelen-argerich.jpg',
+    image: ayelenArgerich,
     alt: 'Sitio web de Ayelén Argerich',
     domain: 'ayelenargerich.com',
     title: 'Traductora Pública Ayelén Argerich',
@@ -36,12 +40,13 @@ const projects = [
         projects.map((project) => (
           <article class="portfolio__card">
             <div class="portfolio__media">
-              <img
+              <Image
                 class="portfolio__media-image"
                 src={project.image}
                 alt={project.alt}
-                width="900"
-                height="605"
+                widths={[600, 900, 1200]}
+                sizes="(min-width: 768px) 27rem, 90vw"
+                format="webp"
                 loading="lazy"
                 decoding="async"
               />

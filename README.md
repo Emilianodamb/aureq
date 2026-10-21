@@ -67,7 +67,13 @@ Cambiá `5491124012037` por el número destino (formato internacional, sin `+` n
 
 ### Portfolio
 
-Para reemplazar un proyecto, guardá la captura en `public/projects/` (JPEG, 900×605 idealmente) y actualizá el objeto correspondiente en `Portfolio.astro`: `image`, `alt`, `domain`, `title`, `text`, `tags` y `href`.
+Para reemplazar un proyecto, guardá la captura en `src/assets/projects/` (JPEG, 900×605 idealmente) e importala arriba de todo en `Portfolio.astro`:
+
+```js
+import miCaptura from '../assets/projects/mi-captura.jpg';
+```
+
+Después actualizá el objeto correspondiente: `image` (usá el import, no una ruta), `alt`, `domain`, `title`, `text`, `tags` y `href`. El componente `<Image>` de `astro:assets` convierte la captura a WebP en el build y genera las variantes de 600 y 900 px; el navegador elige según el ancho de pantalla.
 
 ## Agenda de reuniones
 
