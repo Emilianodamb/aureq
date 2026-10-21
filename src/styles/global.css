@@ -1412,7 +1412,7 @@ button {
 .contact__calendar {
   display: grid;
   gap: 0.75rem;
-  max-width: 56rem;
+  max-width: 50rem;
   margin: clamp(2.5rem, 6vw, 4rem) auto 0;
 }
 
@@ -1433,21 +1433,23 @@ button {
 }
 
 .contact__calendar-frame {
-  min-height: 38rem;
+  margin-top: 1rem;
+}
+
+.contact__calendar-frame:empty {
+  display: grid;
+  place-items: center;
+  min-height: 30rem;
   margin-top: 1rem;
   background: var(--color-surface-soft);
-  border: 1px solid var(--color-border);
+  border: 1px dashed var(--color-border);
   border-radius: 1rem;
-  overflow: visible;
+  color: var(--color-muted);
+  font-size: 0.9375rem;
 }
 
 .contact__calendar-frame:empty::after {
   content: 'Cargando agenda…';
-  display: grid;
-  place-items: center;
-  min-height: 38rem;
-  color: var(--color-muted);
-  font-size: 0.9375rem;
 }
 
 .contact__calendar-fallback {
