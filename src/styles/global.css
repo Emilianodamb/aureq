@@ -907,6 +907,11 @@ button {
   line-height: 1.6;
 }
 
+.features__item-text strong {
+  color: #fff;
+  font-weight: 700;
+}
+
 .features__check {
   flex: none;
   color: var(--color-success);
