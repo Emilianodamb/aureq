@@ -6,7 +6,7 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 
 ## Specs
 
-- **S1 — Fidelidad visual**: replicar el diseño de Stitch sobre fondo `#08090a`, superficie `#111216`, borde `#22252c`, acento `#0052ff`, texto `#e8eaee` y muted `#9aa1ad`. Tipografía Urbanist (400–800). Sin `Playfair Display`: el diseño real usa el logo de Aureq.
+- **S1 — Fidelidad visual**: replicar el diseño de Stitch sobre fondo `#08090a`, superficie `#111216`, borde `#22252c`, acento `#0052ff`, texto `#e8eaee` y muted `#9aa1ad`. Tipografía Noto Sans (400–800) para el cuerpo y BIZ UDPGothic (400/700) para los títulos (S9). Sin `Playfair Display`: el diseño real usa el logo de Aureq.
 - **S2 — Secciones**: header sticky con menú móvil, hero, beneficios (4 tarjetas), proceso (4 pasos), franja tecnológica, funcionalidades (8 ítems + mock de navegador), precios (3 planes), portfolio (2 proyectos reales), FAQ (6 preguntas, la primera abierta), contacto y footer.
 - **S3 — Contenido**: hero `"DISEÑO WEB PARA NEGOCIOS Y PROFESIONALES"`; planes `$249.999`, `$399.999` y presupuesto a medida; CTA de contacto exclusivamente por WhatsApp `+54 9 11 2401-2037`.
 - **S4 — Sin enlaces muertos**: toda navegación apunta a anclas existentes (`#inicio`, `#como-trabajamos`, `#precios`, `#preguntas`, `#contacto`). Se eliminaron los íconos sociales y los enlaces de políticas que no tenían destino.
@@ -14,6 +14,7 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 - **S6 — Responsive**: sin scroll horizontal en 390 px y 1440 px; menú móvil accesible por teclado (Escape cierra y devuelve el foco); respeto de `prefers-reduced-motion`.
 - **S7 — Intro con el logo**: al cargar, capa negra a pantalla completa con el logo corto centrado, respetando la proporción áurea entre el logo y los laterales (logo / margen = 1.618). El logo parpadea dos veces como un tubo de gas y queda encendido. Al hacer scroll la capa se desvanece y muestra el sitio. Con `prefers-reduced-motion` no hay parpadeo; sin JavaScript la capa no aparece.
 - **S8 — Agenda sin backend**: la sección de contacto ofrece reservar 30 minutos contra el Cal.com del cliente (`emiliano-dambrosio/30min`) sin agregar servidor. El embed se inyecta por IntersectionObserver a 400px de la sección y no bloquea la carga inicial. Desde 899px hacia abajo el widget no se embebe (necesita ~900px para las dos columnas) y se ofrece un botón que abre la agenda en Cal.com.
+- **S9 — Jerarquía tipográfica**: títulos en BIZ UDPGothic 700 y cuerpo en Noto Sans; H1 en mayúsculas (el hero ya las tenía) y H2–H6 en sentence case tal como están escritos en el contenido. No se aplica `text-transform: lowercase` global porque destruiría nombres propios y siglas (Aureq, Total Mecánica, Ayelén Argerich, SEO, WhatsApp).
 
 ## Tasks
 
@@ -25,6 +26,7 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 - [x] T6 — Verificación responsive y de enlaces (S4, S6)
 - [x] T7 — Intro con GSAP: logo, parpadeo y salida al scroll (S7)
 - [x] T8 — Agenda de Cal.com embebida con carga diferida y fallback mobile (S8)
+- [x] T9 — Cambio de tipografía: BIZ UDPGothic en títulos, Noto Sans en cuerpo (S9)
 
 ## Log
 
@@ -75,3 +77,12 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 - El iframe de Cal se autodimensiona: fija `min-height` en el contenedor y deja `overflow: visible`. Con `overflow: hidden` se recortaban 50px del widget; con `height` fijo, Cal quedaba más alto que la caja.
 - **Mobile**: el widget necesita ~900px para mostrar calendario y horarios en dos columnas; abajo de eso apila los horarios fuera de la caja visible y obliga a un scroll anidado. Se decidió no embeber por debajo de 899px y mostrar un botón que abre la agenda en Cal.com.
 - Evidencia: desktop 1440 → frame 896×610, `cal-inline` 894×608, calendario y horarios visibles, 0 errores de consola; mobile 390 y tablet 820 → frame oculto, CTA visible, `calLoaded: false` (cero requests a `app.cal.com`); `overflowX` 0 en los tres anchos.
+
+### L7 — Tipografía BIZ UDPGothic + Noto Sans (2026-10-21)
+
+- Prueba de diseño pedida por el cliente: títulos geométricos (BIZ UDPGothic, inspirada en la señalética japonesa) y cuerpo neutro y legible (Noto Sans), en reemplazo de Urbanist.
+- Se agregó `--font-heading` en `:root` y una regla base `h1…h6 { font-family: var(--font-heading); font-weight: 700 }`; `--font-sans` pasa a Noto Sans. El cuerpo hereda `--font-sans` desde `body`, así que no hubo que tocar los estilos de párrafos.
+- **Pesos**: BIZ UDPGothic solo distribuye 400 y 700, así que los títulos que estaban en 800 (`.hero__title`, `.section-heading__title`, `.features__title`, `.contact__title`) bajaron a 700 para evitar negrita sintética. `.pricing__price` sigue en 800 porque usa Noto Sans.
+- **Mayúsculas**: el H1 ya era `text-transform: uppercase` en `.hero__title`; se subió a la regla `h1` para que sea la norma. Los H2/H3 ya están escritos en sentence case en el contenido, así que no se forzó `lowercase`: rompería "Aureq", "Total Mecánica", "SEO", "WhatsApp".
+- Google Fonts carga solo el subset latino con `display=swap` (`BIZ+UDPGothic:wght@400;700` + `Noto+Sans:wght@400..800`).
+- Evidencia: `getComputedStyle` en dev → h1/h2 `"BIZ UDPGothic"` 700 uppercase, body `"Noto Sans"`, `.pricing__price` Noto 800; `document.fonts.load('700 56px "BIZ UDPGothic"')` devuelve 3 caras y `measureText` da 370 px contra 312 (Noto) y 311 (Arial), o sea la fuente se descarga y se pinta. `overflowX` 0 en 1440, 900, 390 y 320; H1 de 106 px (3 líneas) en mobile sin recortes.

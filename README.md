@@ -102,6 +102,17 @@ Todo vive en `src/styles/global.css`, en este orden:
 
 Los nombres siguen BEM: `bloque__elemento--modificador`. Los media queries están al final de cada bloque, no en un archivo aparte.
 
+### Tipografía
+
+| Token | Fuente | Uso |
+| --- | --- | --- |
+| `--font-heading` | BIZ UDPGothic 400/700 | `h1`–`h6` (regla base en `global.css`) |
+| `--font-sans` | Noto Sans 400–800 | Todo el texto, botones y `.pricing__price` |
+
+- Se cargan desde Google Fonts en `BaseLayout.astro` con `display=swap` y solo el subset latino.
+- BIZ UDPGothic no tiene 800: si un título necesita otro peso, el navegador lo sintetiza. Por eso los títulos van en 700.
+- El H1 es el único en mayúsculas (`text-transform: uppercase`). Los H2–H6 se escriben en sentence case en el contenido y no se transforman por CSS, para no romper nombres propios ni siglas.
+
 ### Paleta
 
 | Token | Valor | Uso |
