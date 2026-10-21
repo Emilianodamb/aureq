@@ -24,7 +24,7 @@ En Windows, si PowerShell bloquea el shim de pnpm por la política de ejecución
 public/
   aureq-logo.svg            logo completo de Aureq (blanco, SVG)
   aureq-logo-mark.svg       versión corta "Aq", usada en la intro
-  favicon.svg               favicon
+  favicon.ico               favicon
   robots.txt
   projects/                 capturas de los proyectos del portfolio
 src/
