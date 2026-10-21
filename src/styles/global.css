@@ -29,7 +29,7 @@
   --font-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
 
   /* Forma y ritmo */
-  --radius-sm: 8px;
+  --radius-sm: 32px;
   --radius: 12px;
   --radius-lg: 18px;
   --container: 1200px;
@@ -82,10 +82,6 @@ h6 {
   font-family: var(--font-heading);
   /* BIZ UDPGothic solo tiene 400 y 700: 800 forzaría negrita sintética */
   font-weight: 700;
-}
-
-h1 {
-  text-transform: uppercase;
 }
 
 ul,
@@ -436,7 +432,7 @@ button {
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.04;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 
 .hero__text {
@@ -937,7 +933,9 @@ button {
   font-weight: 700;
 }
 
+/* Solo desktop: el mock no aporta nada apilado debajo del listado */
 .features__preview {
+  display: none;
   width: 100%;
   max-width: 24rem;
   margin-inline: auto;
@@ -1055,6 +1053,7 @@ button {
   }
 
   .features__preview {
+    display: block;
     position: sticky;
     top: 7rem;
   }
