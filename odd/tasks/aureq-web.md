@@ -86,3 +86,11 @@ Stack: Astro 7 + CSS puro. Runner: `pnpm build` / `pnpm dev`.
 - **Mayúsculas**: el H1 ya era `text-transform: uppercase` en `.hero__title`; se subió a la regla `h1` para que sea la norma. Los H2/H3 ya están escritos en sentence case en el contenido, así que no se forzó `lowercase`: rompería "Aureq", "Total Mecánica", "SEO", "WhatsApp".
 - Google Fonts carga solo el subset latino con `display=swap` (`BIZ+UDPGothic:wght@400;700` + `Noto+Sans:wght@400..800`).
 - Evidencia: `getComputedStyle` en dev → h1/h2 `"BIZ UDPGothic"` 700 uppercase, body `"Noto Sans"`, `.pricing__price` Noto 800; `document.fonts.load('700 56px "BIZ UDPGothic"')` devuelve 3 caras y `measureText` da 370 px contra 312 (Noto) y 311 (Arial), o sea la fuente se descarga y se pinta. `overflowX` 0 en 1440, 900, 390 y 320; H1 de 106 px (3 líneas) en mobile sin recortes.
+
+### L8 — Estrategia de carga de imágenes (2026-10-21)
+
+- **Logo del header**: NO se difiere. Es el primer pintado y candidato a LCP; `loading="lazy"` lo retrasaría y dejaría el hueco del logo vacío. Va con `fetchpriority="high"` + `decoding="async"`, que es el default eager pero explícito y priorizado.
+- **Logo del footer**: `loading="lazy"` + `decoding="async"`. Es el mismo URL que el del header, así que ya está en caché: no agrega requests, solo evita que compita por decodificación.
+- **Portfolio**: ya tenía `loading="lazy"` (S5); se sumó `decoding="async"`. Verificado: las dos imágenes (65 KB cada una) no están cargadas al tope de la página y sí después de scrollear.
+- **Calendario**: no hay `<iframe>` propio que diferir. El embed lo crea el script de Cal.com dentro de `#my-cal-inline-30min`, y el `<script>` que lo pide solo corre cuando el `IntersectionObserver` (400 px) detecta la sección. Medido: 0 iframes al cargar, 1 al acercarse. `loading="lazy"` no aplica porque ese atributo solo existe en `<img>`/`<iframe>` escritos por nosotros.
+- **Ancla del logo**: el `<img>` está envuelto en `<a href="#inicio">` y `#inicio` es el `<section class="hero">`. No se le puso `id="inicio"` al `<img>`: duplicaría el id y haría ambiguo el ancla. Medido: click desde el fondo → `scrollY` 6700 → 28, `location.hash` `#inicio`, un solo elemento con ese id.
