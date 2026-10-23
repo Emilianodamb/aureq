@@ -1,0 +1,99 @@
+---
+/**
+ * AnimateIcons wrapper.
+ *
+ * The icon is drawn by the <animate-icons> custom element registered in the
+ * client script below, so it needs JavaScript to appear. The library honours
+ * the user's Reduce Motion setting and plays on hover.
+ */
+interface Props {
+  /** Icon file name, e.g. "trophy" or "message-circle". */
+  name: string;
+  /** Extra class applied to the host element. */
+  class?: string;
+  /**
+   * Selector of an ancestor container that plays the animation on hover, e.g.
+   * ".value__card". Without it the icon plays on its own hover.
+   */
+  hoverOn?: string;
+}
+
+const { name, class: className, hoverOn } = Astro.props;
+---
+
+<animate-icons
+  name={name}
+  class={className}
+  aria-hidden="true"
+  is-animated={hoverOn ? 'false' : undefined}
+  data-hover-on={hoverOn}
+></animate-icons>
+
+<script>
+  import { defineIcons } from '@animateicons/vanilla';
+  import { ClipboardList } from '@animateicons/vanilla/lucide/clipboard-list';
+  import { Code } from '@animateicons/vanilla/lucide/code';
+  import { Compass } from '@animateicons/vanilla/lucide/compass';
+  import { Globe } from '@animateicons/vanilla/lucide/globe';
+  import { MessageCircle } from '@animateicons/vanilla/lucide/message-circle';
+  import { PenTool } from '@animateicons/vanilla/lucide/pen-tool';
+  import { Rocket } from '@animateicons/vanilla/lucide/rocket';
+  import { Search } from '@animateicons/vanilla/lucide/search';
+  import { Shield } from '@animateicons/vanilla/lucide/shield';
+  import { Smartphone } from '@animateicons/vanilla/lucide/smartphone';
+  import { Star } from '@animateicons/vanilla/lucide/star';
+  import { Target } from '@animateicons/vanilla/lucide/target';
+  import { TrendingUp } from '@animateicons/vanilla/lucide/trending-up';
+  import { Trophy } from '@animateicons/vanilla/lucide/trophy';
+  import { Type } from '@animateicons/vanilla/lucide/type';
+  import { Users } from '@animateicons/vanilla/lucide/users';
+
+  defineIcons({
+    ClipboardList,
+    Code,
+    Compass,
+    Globe,
+    MessageCircle,
+    PenTool,
+    Rocket,
+    Search,
+    Shield,
+    Smartphone,
+    Star,
+    Target,
+    TrendingUp,
+    Trophy,
+    Type,
+    Users,
+  });
+
+  type AnimateIconsElement = HTMLElement & {
+    startAnimation?: () => void;
+    stopAnimation?: () => void;
+  };
+
+  /**
+   * Icons with a "hoverOn" container opt out of the library's own hover and
+   * play while the pointer (or keyboard focus) is anywhere inside that
+   * container. `defineIcons` upgrades the already-parsed tags synchronously, so
+   * the animation controls exist by the time we reach this loop.
+   */
+  const hosts = document.querySelectorAll<AnimateIconsElement>('animate-icons[data-hover-on]');
+
+  for (const host of hosts) {
+    const container = host.dataset.hoverOn ? host.closest(host.dataset.hoverOn) : null;
+    if (!container) continue;
+
+    const play = () => host.startAnimation?.();
+    const reset = () => host.stopAnimation?.();
+
+    container.addEventListener('mouseenter', play);
+    container.addEventListener('mouseleave', reset);
+    container.addEventListener('focusin', play);
+    // Keep playing while focus moves between children of the same container.
+    container.addEventListener('focusout', (event) => {
+      const next = (event as FocusEvent).relatedTarget as Node | null;
+      if (!container.contains(next)) reset();
+    });
+  }
+</script>

@@ -903,12 +903,20 @@ button {
 }
 
 .features__icon {
+  display: flex;
   flex: none;
+  align-items: center;
   margin-top: 0.125rem;
   color: #60a5fa;
 }
 
 .features__icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Reserve the icon box before the custom element renders on the client. */
+.features__icon animate-icons {
   width: 1rem;
   height: 1rem;
 }

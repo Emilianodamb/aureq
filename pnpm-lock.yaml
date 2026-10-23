@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@animateicons/vanilla':
+        specifier: ^0.1.0
+        version: 0.1.0
       astro:
         specifier: ^7.4.1
         version: 7.4.1(yaml@2.9.1)
@@ -16,6 +19,10 @@ importers:
         version: 3.15.0
 
 packages:
+
+  '@animateicons/vanilla@0.1.0':
+    resolution: {integrity: sha512-o556Pw+B4OGShwhCBNiAs58e0yUXwb4cSipfy803Mf+UVmkSa+NV8Wmv8ZhdkDF7B6A7cl7E9jVbnHGBhRC59w==}
+    engines: {node: '>=18.17.0'}
 
   '@astrojs/compiler-binding-android-arm64@0.5.2':
     resolution: {integrity: sha512-kckIxon6Rm/Bxzh9mGPYpRRqUbToUQoHptCmpMmE+Yt0Xumq8CqrKUidyYhrBsrHVO7bxuRzzWUUqvpf+iYceQ==}
@@ -1202,6 +1209,8 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
+
+  '@animateicons/vanilla@0.1.0': {}
 
   '@astrojs/compiler-binding-android-arm64@0.5.2':
     optional: true
